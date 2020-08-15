@@ -16,7 +16,7 @@ var usersRouter = require('./routes/users');
 var pollsRouter = require('./routes/polls');
 
 const url = config.mongoUrl;
-const connect = mongoose.connect(url);
+const connect = mongoose.connect(url,  { useUnifiedTopology: true, useNewUrlParser: true});
 connect.then((db) => {
   console.log('Connected correctly to server');
 },(err) => { console.log(err)});
