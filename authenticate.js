@@ -1,5 +1,6 @@
 //using passport for authentication
 var passport = require('passport');
+require('dotenv').config();
 //for local strategy of authentication
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user');
@@ -27,7 +28,7 @@ exports.getToken = function(user) {
 
     //it has three parameters, 1st is user details, 2nd is secret key for encoding from congif.js module
     //3rd is expiry time of token
-    return jwt.sign(user, config.secretKey,
+    return jwt.sign(user, process.env.SECRET_KEY || config.secretKey,
         {expiresIn: 36000});
 };
 
@@ -38,7 +39,9 @@ var opts = {};
 //here we are using formauthheaderasbrearertoken
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 //passing secret key that will be used in strategy
-opts.secretOrKey = config.secretKey;
+//opts.secretOrKey = process.env.secretKey || config.secretKey;
+opts.secretOrKey = process.env.SECRET_KEY;
+//console.log(process.env.SECRET_KEY);
 
 
 //json web token passport strategy

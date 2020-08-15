@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -15,8 +16,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pollsRouter = require('./routes/polls');
 
-const url = config.mongoUrl;
-const connect = mongoose.connect(url,  { useUnifiedTopology: true, useNewUrlParser: true});
+//const url = config.mongoUrl;
+const connect = mongoose.connect(process.env.DB_URL,  { useUnifiedTopology: true, useNewUrlParser: true});
 connect.then((db) => {
   console.log('Connected correctly to server');
 },(err) => { console.log(err)});
